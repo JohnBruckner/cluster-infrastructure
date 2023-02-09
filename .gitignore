@@ -1,0 +1,5 @@
+# Exclude virtual machine images
+ova/*
+
+# Exclude drafts
+drafts/*
