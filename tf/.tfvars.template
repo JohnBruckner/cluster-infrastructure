@@ -1,0 +1,6 @@
+esxi_hostname = "<Esxi server hostname or IP>"
+esxi_username = ""
+esxi_password = ""
+esxi_storage = "<Esxi server storage>"
+vm_old_pwd = "<Default OVA password>"
+vm_new_pwd = "<New password chosen by user>"
