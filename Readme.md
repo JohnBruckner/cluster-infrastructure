@@ -30,3 +30,26 @@ Changing *numvcpus*, *memsize*, *nic_type* after vm creation will edit the VM, d
 
 In some instances OVF tool will fail with a *segfault*. Cause is uncertain but creating fewer machines at the same time seems to solve the issue.
 
+## Ansible
+
+Ansible is straightforward to set up and use. It provides a convenient way of of configuring machines by describing their desired stated and then running through the necessary steps to get to it.
+
+To deploy a simple K3s cluster Rancher provides a [tutorial](https://www.suse.com/c/rancher_blog/deploying-k3s-with-ansible/) accompanied by a functional [playbook](https://github.com/k3s-io/k3s-ansible). After cloning the k3s-ansible repository a custom *inventory* file needs to be provided containing the hostnames/ips of the virtual machines to be configured, the repo provides a template hosts file that can be copied to a new folder and passed to the playbook.
+
+### Ansible commands:
+```
+ ansible-playbook site.yml -i inventory/my-cluster/hosts.ini -K # deploy the cluster
+
+ ansible-playbook reset.yml -i inventory/my-cluster/hosts.ini -K # reset/uninstall the cluster
+ ```
+
+### Ansible notes:
+
+Setting up the playbook and running it it was observed that it gets stuck at one of the final stages *TASK [k3s/node : Enable and check K3s service]*. This is likely due to the master node being unable to initiate a connection with the worker nodes. There are two solutions that resolve this.
+* Change the **hosts.ini** file in the inventory to use IP addresses instead of host names. This solution has been proposed [here](https://github.com/k3s-io/k3s-ansible/issues/57)
+* Change the firewall policy to allow outside connections, do this on the master node. 
+``` 
+systemctl stop iptables & systemctl disable iptables # stops the firewall completely; NOT GREAT
+iptables --policy INPUT ACCEPT
+```
+
