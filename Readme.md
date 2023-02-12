@@ -54,7 +54,7 @@ iptables --policy INPUT ACCEPT
 ```
 
 ## Support infrastructure
-A separate machine is useful to have to manage the cluster. I use an Ubuntu 22.05 LTS server VM running on the same hardware as the cluster for this purpose.
+A separate machine is useful to have to manage the cluster. I use an Ubuntu 22.04 LTS server VM running on the same hardware as the cluster for this purpose.
 
 ### Kubectl
 
