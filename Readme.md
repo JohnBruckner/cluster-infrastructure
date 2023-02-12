@@ -53,3 +53,27 @@ systemctl stop iptables & systemctl disable iptables # stops the firewall comple
 iptables --policy INPUT ACCEPT
 ```
 
+## Support infrastructure
+A separate machine is useful to have to manage the cluster. I use an Ubuntu 22.05 LTS server VM running on the same hardware as the cluster for this purpose.
+
+### Kubectl
+
+The following steps configure the remote machine to have access to the cluster:
+1. SSH into the master node
+2. Run the following command 
+2. ```cat /etc/rancher/k3s/k3s.yaml```.
+3. Copy and paste the output text into a notepad and replace the following line *https://127.0.0.1:6443* with the IP of your master node
+4. On your designated management machine:
+5. Create the kube directory in your user home directory 
+5. ```mkdir ~/.kube```
+6. Create a configuration file in the .kube directory using your favourite editor
+6. ```vim ~/.kube/config```
+7. Paste the contents from your notepad into this file and save it (esc :wq)
+8. Install **kubectl**. The official Kubernetes documentation provides several ways listed [here](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+8. Since I use Ubuntu I can install **kubectl** through **snap**
+9. ```snap install kubectl --classic```
+
+### Helm
+1. [Install Helm 3](https://helm.sh/docs/intro/install/) on the management machine
+2. Helm will use the Kubectl config file to liason with the cluster
+
