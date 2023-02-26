@@ -1,2 +1,2 @@
 # ignore custom configuration
-./my-cluster/*
+inventory/my-cluster/*
