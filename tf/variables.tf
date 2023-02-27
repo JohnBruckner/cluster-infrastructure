@@ -18,7 +18,7 @@ variable "esxi_username" {
 variable "esxi_password" {
     # Unspecified will prompt
     type = string
-    # sensitive = true
+    sensitive = true
 }
 
 variable "esxi_storage" {
@@ -27,10 +27,10 @@ variable "esxi_storage" {
 
 variable "vm_old_pwd" {
     type = string
-    # sensitive = true
+    sensitive = true
 }
 
 variable "vm_new_pwd" {
     type = string
-    # sensitive = true
+    sensitive = true
 }
